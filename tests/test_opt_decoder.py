@@ -30,9 +30,11 @@ def test_opt_decoder_layer():
 
     decoder_layer_scales = []
     for idx in range(config.num_hidden_layers):
-        scale_dict = {}
-        scale_dict["attn_input_scale"] = act_dict[f"layers.{idx}.self_attn.q_proj"][0].abs(
-        ).max() / 127
+        scale_dict = {
+            "attn_input_scale": (
+                act_dict[f"layers.{idx}.self_attn.q_proj"][0].abs().max() / 127
+            )
+        }
         scale_dict["q_output_scale"] = act_dict[f"layers.{idx}.self_attn.q_proj"][1].abs(
         ).max() / 127
         scale_dict["k_output_scale"] = act_dict[f"layers.{idx}.self_attn.k_proj"][1].abs(

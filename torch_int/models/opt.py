@@ -58,7 +58,7 @@ class Int8OPTAttention(nn.Module):
                    out_input_scale: float):
         int8_module = Int8OPTAttention(module.embed_dim, module.num_heads)
         # Fuse the scaling into the q_proj output scale
-        q_output_scale = q_output_scale * module.scaling
+        q_output_scale *= module.scaling
         module.q_proj.weight *= module.scaling
         module.q_proj.bias *= module.scaling
         int8_module.q_proj = W8A8B8O8Linear.from_float(

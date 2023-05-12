@@ -16,7 +16,7 @@ if __name__ == '__main__':
     parser.add_argument('--q', action='store_true')
     parser.add_argument('--a_bit', type=int, default=8)
     args = parser.parse_args()
-    model_name = "/dataset/opt/{}".format(args.model)
+    model_name = f"/dataset/opt/{args.model}"
     TIMES = args.num_iter
     model = AutoModelForCausalLM.from_pretrained(
         model_name, device_map="auto", torch_dtype=torch.float16)

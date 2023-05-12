@@ -279,7 +279,7 @@ class W8A16Linear(torch.nn.Module):
         return new_module
 
     def __repr__(self):
-        return super().__repr__() + f'({self.in_features}, {self.out_features}, bias={self.bias is not None})'
+        return f'{super().__repr__()}({self.in_features}, {self.out_features}, bias={self.bias is not None})'
 
 
 class W8FakeA8Linear(torch.nn.Module):
@@ -334,4 +334,4 @@ class W8FakeA8Linear(torch.nn.Module):
         return new_module
 
     def __repr__(self):
-        return super().__repr__() + f'({self.in_features}, {self.out_features}, bias={self.bias is not None})'
+        return f'{super().__repr__()}({self.in_features}, {self.out_features}, bias={self.bias is not None})'

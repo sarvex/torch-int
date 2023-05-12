@@ -37,8 +37,7 @@ class Evaluator:
             total += label.size(0)
             hit += (pred == label).sum().item()
             pbar.set_postfix({'acc': hit / total})
-        acc = hit / total
-        return acc
+        return hit / total
 
 
 @torch.no_grad()
@@ -46,10 +45,10 @@ def test_opt():
     dataset = load_dataset('lambada', split='validation[:1000]')
     tokenizer = GPT2Tokenizer.from_pretrained('facebook/opt-13b')
     evaluator = Evaluator(dataset, tokenizer, 'cuda')
-    int8_model_path = '/dataset/opt/opt-13b-smoothquant'
     # precision = 'fp16'
     precision = 'int8'
     if precision == 'int8':
+        int8_model_path = '/dataset/opt/opt-13b-smoothquant'
         model = Int8OPTForCausalLM.from_pretrained(int8_model_path,
                                                    device_map='auto', torch_dtype=torch.float16)
     else:

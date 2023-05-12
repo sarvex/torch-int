@@ -14,8 +14,7 @@ class LayerNormQ(torch.nn.Module):
         x = x.to(self.weight.dtype)
         ln_output_fp = torch.nn.functional.layer_norm(
             x, x.shape[-1:], self.weight, self.bias, self.eps)
-        ln_output_int8 = ln_output_fp.round().clamp(-128, 127).to(torch.int8)
-        return ln_output_int8
+        return ln_output_fp.round().clamp(-128, 127).to(torch.int8)
 
     @staticmethod
     def from_float(module: torch.nn.LayerNorm, output_scale: float):
